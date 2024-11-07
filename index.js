@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Defina a mensagem que será enviada
-const mensagem = "Olá, esta é a mensagem do servidor Railway!";
+const mensagem = " mensagem teste contida no servidor!!!  ";
 
 app.get('/mensagem', (req, res) => {
   // Rota que retorna a mensagem
