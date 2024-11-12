@@ -1,32 +1,26 @@
-// index.js
-
+// Importa o Express
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 8080; // Usa a porta 8080 explicitamente
+const port = process.env.PORT || 3000;
 
-
-// Middleware para processar JSON
+// Middleware para interpretar JSON
 app.use(express.json());
 
-let ultimaMensagem = "Nenhuma mensagem recebida ainda.";
+// Variável para armazenar a mensagem
+let mensagemArmazenada = "";
 
-// Rota para receber a mensagem enviada pelo SIM800L
-app.post('/mensagem', (req, res) => {
-  const { mensagem } = req.body;
-  
-  if (mensagem) {
-    ultimaMensagem = mensagem; // Armazena a mensagem recebida
-    res.status(200).json({ status: "Mensagem recebida com sucesso!" });
-  } else {
-    res.status(400).json({ status: "Erro: Nenhuma mensagem foi enviada." });
-  }
+// Endpoint para armazenar a mensagem (POST)
+app.post('/api/armazenar_mensagem', (req, res) => {
+  mensagemArmazenada = req.body.conteudo;
+  res.json({ status: "Mensagem armazenada com sucesso" });
 });
 
-// Rota para obter a última mensagem recebida
-app.get('/mensagem', (req, res) => {
-  res.json({ mensagem: ultimaMensagem });
+// Endpoint para recuperar a mensagem (GET)
+app.get('/api/obter_mensagem', (req, res) => {
+  res.json({ conteudo: mensagemArmazenada });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+// Inicia o servidor
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
