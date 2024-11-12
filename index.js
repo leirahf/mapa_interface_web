@@ -1,14 +1,29 @@
 // index.js
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Defina a mensagem que será enviada
-const mensagem = " mensagem teste contida no servidor!!!  ";
+// Middleware para processar JSON
+app.use(express.json());
 
+let ultimaMensagem = "Nenhuma mensagem recebida ainda.";
+
+// Rota para receber a mensagem enviada pelo SIM800L
+app.post('/mensagem', (req, res) => {
+  const { mensagem } = req.body;
+  
+  if (mensagem) {
+    ultimaMensagem = mensagem; // Armazena a mensagem recebida
+    res.status(200).json({ status: "Mensagem recebida com sucesso!" });
+  } else {
+    res.status(400).json({ status: "Erro: Nenhuma mensagem foi enviada." });
+  }
+});
+
+// Rota para obter a última mensagem recebida
 app.get('/mensagem', (req, res) => {
-  // Rota que retorna a mensagem
-  res.json({ mensagem });
+  res.json({ mensagem: ultimaMensagem });
 });
 
 app.listen(PORT, () => {
