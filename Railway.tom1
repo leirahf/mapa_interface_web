@@ -1,0 +1,4 @@
+[build]
+
+[env]
+FORCE_HTTP = "true"
