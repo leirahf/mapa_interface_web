@@ -9,10 +9,10 @@ app.use(express.json());
 // Variável para armazenar a mensagem
 let mensagemArmazenada = "";
 
-// Forçar HTTP em vez de HTTPS
+// Forçar HTTP em vez de HTTPS, verificando o cabeçalho X-Forwarded-Proto
 app.use((req, res, next) => {
-  if (req.protocol === 'https') {
-    // Se a requisição for HTTPS, redireciona para HTTP
+  if (req.headers['x-forwarded-proto'] === 'https') {
+    // Se o tráfego vem de HTTPS, redireciona para HTTP
     return res.redirect('http://' + req.headers.host + req.url);
   }
   next();
