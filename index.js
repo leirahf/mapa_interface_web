@@ -11,7 +11,7 @@ let mensagemArmazenada = "";
 
 // Forçar HTTP em vez de HTTPS, verificando o cabeçalho X-Forwarded-Proto
 app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] === 'https') {
+  if (req.headers['x-forwarded-proto'] == 'https') {
     // Se o tráfego vem de HTTPS, redireciona para HTTP
     return res.redirect('http://' + req.headers.host + req.url);
   }
