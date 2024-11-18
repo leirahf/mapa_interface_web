@@ -9,6 +9,15 @@ app.use(express.json());
 // Variável para armazenar a mensagem
 let mensagemArmazenada = "";
 
+// Forçar HTTP em vez de HTTPS
+app.use((req, res, next) => {
+  if (req.protocol === 'https') {
+    // Se a requisição for HTTPS, redireciona para HTTP
+    return res.redirect('http://' + req.headers.host + req.url);
+  }
+  next();
+});
+
 // Endpoint para armazenar a mensagem (POST)
 app.post('/api/armazenar_mensagem', (req, res) => {
   mensagemArmazenada = req.body.conteudo;
