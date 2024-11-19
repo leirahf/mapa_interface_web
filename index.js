@@ -1,7 +1,11 @@
 // Importa o Express
 const express = require('express');
+const cors = require('cors'); // Importa o pacote CORS
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Ativa o CORS para todas as rotas
+app.use(cors());
 
 // Middleware para interpretar JSON
 app.use(express.json());
