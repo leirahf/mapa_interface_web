@@ -1,17 +1,21 @@
 // Importa o Express
 const express = require('express');
+const cors = require('cors'); // Importa o pacote CORS
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware para interpretar JSON
 app.use(express.json());
 
+// Configuração do CORS para permitir requisições de outras origens
+app.use(cors()); // Permite todas as origens
+
 // Variável para armazenar a mensagem
 let mensagemArmazenada = "";
 
 // Forçar HTTP em vez de HTTPS, verificando o cabeçalho X-Forwarded-Proto
 app.use((req, res, next) => {
-  if (req.protocol == 'https') {
+  if (req.protocol === 'https') {
     // Se o tráfego vem de HTTPS, redireciona para HTTP
     return res.redirect('http://' + req.headers.host + req.url);
   }
