@@ -71,7 +71,7 @@
 
         // Atualiza as coordenadas a cada 2 segundos
         setInterval(() => {
-            fetch('http://64.225.20.92/api/obter_mensagem')
+            fetch('https://64.225.20.92/api/obter_mensagem')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Erro na requisição: ' + response.statusText);
